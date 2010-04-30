@@ -1,0 +1,33 @@
+<html>
+  <body>
+    <script src="http://www.google-analytics.com/ga.js"></script>
+    <script src="ga_dpc_tag_min_cliente.js"></script>
+	
+	<h1>Teste Tag Youtube</h1>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>  
+	
+	<div id="ytapiplayer1"><a href="http://www.youtube.com/watch?v=gRvUpoTT-Bo&hl=pt-br&fs=1" target="_blank"></a></div>
+	<script type="text/javascript">
+	var params = { allowScriptAccess: "always" };
+	var atts = { id: "myytplayer1" };
+	swfobject.embedSWF("http://www.youtube.com/v/gRvUpoTT-Bo&hl=pt-br&fs=1&enablejsapi=1&playerapiid=myytplayer1", "ytapiplayer1", "425", "344", "8", null, null, params, atts);
+	</script>
+	
+	<div id="ytapiplayer2"><a href="http://www.youtube.com/watch?v=ldC7FQiUJ6s&hl=pt-br&fs=1" target="_blank"></a></div>
+	<script type="text/javascript">
+	var params = { allowScriptAccess: "always" };
+	var atts = { id: "myytplayer2" };
+	swfobject.embedSWF("http://www.youtube.com/v/ldC7FQiUJ6s&hl=pt-br&fs=1&enablejsapi=1&playerapiid=myytplayer2", "ytapiplayer2", "425", "344", "8", null, null, params, atts);
+	</script>
+	  
+
+	<script src="ga_dpc_youtube.js"></script>
+	<script>
+		//try{
+			var ytTracker = new YoutubeTracker(false, false, true);
+		//}catch(e){}
+	</script>
+	
+  </body>
+</html>
