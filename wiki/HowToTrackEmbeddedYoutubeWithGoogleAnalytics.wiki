@@ -26,7 +26,8 @@ In Internet Explorer, some features of the YouTube API can not be performed with
 
 See how the code is a simple page for example:
 
-`<!--SWF Object Reference needed to cross-browser embedding the player-->
+{{{
+<!--SWF Object Reference needed to cross-browser embedding the player-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>  
 
 <!--YouTube Embedded Code - Video 1-->
@@ -44,7 +45,8 @@ swfobject.embedSWF("http://www.youtube.com/v/gRvUpoTT-Bo&hl=pt-br&fs=1&enablejsa
 	try{
 		var ytTracker = new YoutubeTracker();
 	}catch(e){}
-</script>`
+</script>
+}}}
 
 The library monitors the embedded video and triggers the following events interface for event tracking Google Analytics:
   *Cued (video ready)
@@ -64,11 +66,12 @@ See what's the event topology for this tracking:
 
 These time labels (called “buckets”) are defined by default as the visits-length report in Google Analytics in seconds (0-9, 10-29, 30-59, 60-179, 180-599, 600 +). It is possible, however customize these tracks passing the parameter opt_bucket to the library initialization method in the page code. See example (defining tracks in seconds for 0-29, 30-59, 60-89, 90-119, 120 +):
 
-`<script>
+{{{
+<script>
 	try{
 		var ytTracker = new YoutubeTracker([30,60,90,120]);
 	}catch(e){}
-</script>`
-
+</script>
+}}}
 
 [http://www.directperformance.com.br/en/como-medir-videos-youtube-com-google-analytics]
