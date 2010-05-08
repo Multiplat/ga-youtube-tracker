@@ -15,10 +15,10 @@ Digging a little the Youtube Player API, we find ways to monitor events video, a
 = Details =
 
 To use the library it’s simple:
-  #Add an element ID for the flash player embedded in the page
-  #Add the URL of the Youtube video parameters: &enablejsapi=1&playerapiid=FLASH_ELEMENT_ID
-  #Download the Library Javascript file and host at your server
-  #Include a call to the library in your page that contains videos
+  # Add an element ID for the flash player embedded in the page
+  # Add the URL of the Youtube video parameters: &enablejsapi=1&playerapiid=FLASH_ELEMENT_ID
+  # Download the Library Javascript file and host at your server
+  # Include a call to the library in your page that contains videos
 
 We have to concern ourselves only with one technical detail to enable this:
 
@@ -49,20 +49,20 @@ swfobject.embedSWF("http://www.youtube.com/v/gRvUpoTT-Bo&hl=pt-br&fs=1&enablejsa
 }}}
 
 The library monitors the embedded video and triggers the following events interface for event tracking Google Analytics:
-  *Cued (video ready)
-  *Play
-  *Paused
-  *Ended
-  *Fast-Forward
-  *Rewind
-  *View-Range (how much of the video was viewed)
+  * Cued (video ready)
+  * Play
+  * Paused
+  * Ended
+  * Fast-Forward
+  * Rewind
+  * View-Range (how much of the video was viewed)
 
 For each of this triggered events, the library includes a label indicating which part of the video that event occurred. It is possible in example to know how many seconds of video visitors viewed when they stoped the video. Or whether they view as much as half of the video, or until the end, etc..
 
 See what's the event topology for this tracking:
-  #The event categories are defined as youtube-video:YouTube-Video-ID
-  #Drill-down into a specific video, you will see that actions are nothing more than the events of the video (cued, play, paused, ended, fast-foward, rewind)
-  #And if you click on each action, you will see that each action is associated with a piece of video viewing time ranges
+  # The event categories are defined as youtube-video:YouTube-Video-ID
+  # Drill-down into a specific video, you will see that actions are nothing more than the events of the video (cued, play, paused, ended, fast-foward, rewind)
+  # And if you click on each action, you will see that each action is associated with a piece of video viewing time ranges
 
 These time labels (called “buckets”) are defined by default as the visits-length report in Google Analytics in seconds (0-9, 10-29, 30-59, 60-179, 180-599, 600 +). It is possible, however customize these tracks passing the parameter opt_bucket to the library initialization method in the page code. See example (defining tracks in seconds for 0-29, 30-59, 60-89, 90-119, 120 +):
 
