@@ -1,4 +1,5 @@
 #summary How to track embedded YouTube videos with Google Analytics
+#labels Featured,Phase-Implementation,Phase-Deploy
 
 = Introduction =
 
