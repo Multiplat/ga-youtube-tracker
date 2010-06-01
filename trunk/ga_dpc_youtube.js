@@ -20,7 +20,7 @@
  * $Date: 2009-10-01 17:52:42 -0300 (qui, 01 out 2009) $
  * @fileoverview  métodos para medição de interações com vídeos Youtube Embedded usando eventos no Google Analytics
  * @author DirectPerformance -  http://www.directperformance.com.br/ <contato@directperformance.com.br>
- * @version $Revision:  $
+ * @version $Revision$
  *
  */
  
