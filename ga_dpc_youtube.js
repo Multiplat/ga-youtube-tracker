@@ -2,9 +2,21 @@
  * DPC GA for Youtube Embed
  * 
  * http://directperformance.com.br/
- * Copyright (c) 2009 Direct Performance
- * ga-dpc-youtube by Direct Performance (http://www.directperformance.com.br) is licensed under a Creative Commons Atribuição-Uso Não-Comercial-Compartilhamento pela mesma Licença 2.5 Brasil License (http://creativecommons.org/licenses/by-nc-sa/2.5/br/).
  *
+ *  Copyright 2010 Direct Performance
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ * 
  * $Date: 2009-10-01 17:52:42 -0300 (qui, 01 out 2009) $
  * @fileoverview  métodos para medição de interações com vídeos Youtube Embedded usando eventos no Google Analytics
  * @author DirectPerformance -  http://www.directperformance.com.br/ <contato@directperformance.com.br>
@@ -27,7 +39,7 @@ YoutubeTrackerGlobal.callbackTracker = function(video_code,action,bucket,time_se
  *     Ex: <object id="myytplayer"> or <embed id="myytplayer">
  * 2) Include Youtube JS API parameters in OBJECT or EMBED url: &enablejsapi=1&playerapiid=ytplayer
  *     Ex: http://www.youtube.com/v/gRvUpoTT-Bo&hl=pt-br&fs=1&enablejsapi=1&playerapiid=myytplayer
- * 3) Especificar atributo allowscriptaccess="always"
+ * 3) Specify atributo allowscriptaccess="always"
  *     Ex: <param name="allowscriptaccess" value="always"> or <embed allowscriptaccess="always">
  * @param {Number[]} [arg1=[10, 30, 60, 180, 600]] Array that represents the bucket
  * @constructor
@@ -40,8 +52,12 @@ var YoutubeTracker = window.YoutubeTracker = function(opt_bucket,callback,debug)
   }
   if (callback){
 	YoutubeTrackerGlobal.callbackTracker = callback;
-  } else if(pageTracker&&pageTracker._trackEvent) {
-	YoutubeTrackerGlobal.callbackTracker = pageTracker._trackEvent;
+  } else {
+	try{
+  		YoutubeTrackerGlobal.callbackTracker = _gat._getTrackerByName()._trackEvent;
+	}catch(e){
+  		YoutubeTrackerGlobal.callbackTracker = pageTracker._trackEvent;
+	}
   }
   if (debug){
 	YoutubeTrackerGlobal.callbackTracker_ = YoutubeTrackerGlobal.callbackTracker;

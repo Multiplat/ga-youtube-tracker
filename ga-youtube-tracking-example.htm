@@ -1,7 +1,15 @@
 <html>
   <body>
-    <script src="http://www.google-analytics.com/ga.js"></script>
-    <script src="ga_dpc_tag_min_cliente.js"></script>
+    <script type="text/javascript">
+	    var _gaq = _gaq || [];
+	    _gaq.push(['_setAccount', 'UA-XXXXX-X']);
+	    _gaq.push(['_trackPageview']);
+	    (function() {
+	     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	     })();
+    </script>
 	
 	<h1>YouTube Tracking with Google Analytics Example</h1>
 	
@@ -29,7 +37,10 @@
 	<!--Initializing component-->
 	<script>
 		try{
-			var ytTracker = new YoutubeTracker(false, false, true);
+			function yt_callback(category,action,label,value){
+				_gaq.push(['_trackEvent',category,action,label,value]);
+			}
+			var ytTracker = new YoutubeTracker(false, yt_callback, true);
 		}catch(e){}
 	</script>
 	
