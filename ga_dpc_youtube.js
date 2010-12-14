@@ -63,9 +63,11 @@ var YoutubeTracker = window.YoutubeTracker = function(opt_bucket,callback,debug)
 	YoutubeTrackerGlobal.callbackTracker_ = YoutubeTrackerGlobal.callbackTracker;
 	YoutubeTrackerGlobal.callbackTracker = function(video_code,action,bucket,time_seconds){
 		YoutubeTrackerGlobal.callbackTracker_(video_code,action,bucket,time_seconds);
-		if (console&&console.log){
-			console.log(video_code + ', ' + action + ', ' + bucket + ', ' + time_seconds);//DEBUG
-		}		
+		if (typeof console != 'undefined'){
+			if (console&&console.log){
+				console.log(video_code + ', ' + action + ', ' + bucket + ', ' + time_seconds);//DEBUG
+			}
+		}
 	};
   }
 };
@@ -134,7 +136,7 @@ YoutubeTrackerGlobal.trackMaxTime = function(){
 			bucketString = YoutubeTrackerGlobal.getBucket(YoutubeTrackerGlobal.objects[i].maxTime);
 			ytplayer = document.getElementById(YoutubeTrackerGlobal.objects[i].id);
 			if (ytplayer){
-				cat_name = ytplayer._YoutubeTracker_cod_video;			
+				cat_name = ytplayer._YoutubeTracker_videoId();			
 				action_name = "max-time";
 				YoutubeTrackerGlobal.callbackTracker(cat_name,action_name,bucketString,YoutubeTrackerGlobal.objects[i].maxTime);
 			}
@@ -159,7 +161,7 @@ YoutubeTrackerGlobal.updatetimer = function(){
 				if (ytplayer.getPlayerState()==1){
 					actualBucket = YoutubeTrackerGlobal.getBucket(currTime);
 					if (actualBucket!=ytplayer._YoutubeTracker_lastBucket){
-						cat_name = ytplayer._YoutubeTracker_cod_video;
+						cat_name = ytplayer._YoutubeTracker_videoId();
 						action_name = "view-range";
 						YoutubeTrackerGlobal.callbackTracker(cat_name,action_name,actualBucket,currTime);
 						ytplayer._YoutubeTracker_lastBucket = actualBucket;
@@ -175,17 +177,21 @@ YoutubeTrackerGlobal.updatetimer = function(){
  * @public
  * @playerId {String[]}  Object ID passed in &playerapiid
  */
+if (typeof onYouTubePlayerReady != 'undefinded') window.onYouTubePlayerReady_original = window.onYouTubePlayerReady; // stores original custom events
 window.onYouTubePlayerReady = function(playerId) {
+	if (typeof window.onYouTubePlayerReady_original != 'undefinded') window.onYouTubePlayerReady_original(playerId);
 	//identificação do vídeo
 	var ytplayer = document.getElementById(playerId);		
 	//cria método de envio de ações no vídeo
 	if (ytplayer){
-		var re = /(v=|v\/|p\/)([^&?]+)/.exec(ytplayer.getVideoUrl());
-		var cod_video=((re&&re[2])?re[2]:ytplayer.getVideoUrl())||playerId;
-		ytplayer._YoutubeTracker_cod_video = "youtube-video:" + cod_video;
-		YoutubeTrackerGlobal.objects.push({id:playerId,maxTime:0,cod:cod_video});
+		ytplayer._YoutubeTracker_videoId = function(){
+			re = /(v=|v\/|p\/)([^&?]+)/.exec(this.getVideoUrl());
+			url_video=((re&&re[2])?re[2]:this.getVideoUrl())||this.getVideoUrl();
+			return "youtube-video:" + url_video;
+		}		
+		YoutubeTrackerGlobal.objects.push({id:playerId,maxTime:0,cod:ytplayer._YoutubeTracker_videoId()});
 		ytplayer._YoutubeTracker_sendaction = function(newState){
-			var cat_name = this._YoutubeTracker_cod_video;					
+			var cat_name = this._YoutubeTracker_videoId();					
 			posicao = parseInt(this.getCurrentTime(),10);
 			var action_name = newState;
 			switch (newState){
@@ -245,7 +251,7 @@ window.onYouTubePlayerReady = function(playerId) {
 		ytplayer.addEventListener("onStateChange", "document.getElementById('"+playerId+"')._YoutubeTracker_sendaction");
 		//tratamento de erros no vídeo
 		ytplayer._YoutubeTracker_senderror = function(errCode){
-			var cat_name = this._YoutubeTracker_cod_video;
+			var cat_name = this._YoutubeTracker_videoId();
 			YoutubeTrackerGlobal.callbackTracker(cat_name,"error",errCode);
 		};
 		ytplayer.addEventListener("onError", "document.getElementById('"+playerId+"')._YoutubeTracker_senderror");
