@@ -18,7 +18,7 @@
  *  limitations under the License.
  * 
  * $Date: 2009-10-01 17:52:42 -0300 (qui, 01 out 2009) $
- * @fileoverview  métodos para medição de interações com vídeos Youtube Embedded usando eventos no Google Analytics
+ * @fileoverview  Library to track youtube embedded video interactions using Google Analytics
  * @author DirectPerformance -  http://www.directperformance.com.br/ <contato@directperformance.com.br>
  * @version $Revision$
  *
@@ -180,9 +180,9 @@ YoutubeTrackerGlobal.updatetimer = function(){
 if (typeof onYouTubePlayerReady != 'undefinded') window.onYouTubePlayerReady_original = window.onYouTubePlayerReady; // stores original custom events
 window.onYouTubePlayerReady = function(playerId) {
 	if (typeof window.onYouTubePlayerReady_original != 'undefinded') window.onYouTubePlayerReady_original(playerId);
-	//identificação do vídeo
+	//video identification
 	var ytplayer = document.getElementById(playerId);		
-	//cria método de envio de ações no vídeo
+	//method to send video actions
 	if (ytplayer){
 		ytplayer._YoutubeTracker_videoId = function(){
 			re = /(v=|v\/|p\/)([^&?]+)/.exec(this.getVideoUrl());
@@ -249,13 +249,13 @@ window.onYouTubePlayerReady = function(playerId) {
 			}
 		};
 		ytplayer.addEventListener("onStateChange", "document.getElementById('"+playerId+"')._YoutubeTracker_sendaction");
-		//tratamento de erros no vídeo
+		//error handling
 		ytplayer._YoutubeTracker_senderror = function(errCode){
 			var cat_name = this._YoutubeTracker_videoId();
 			YoutubeTrackerGlobal.callbackTracker(cat_name,"error",errCode);
 		};
 		ytplayer.addEventListener("onError", "document.getElementById('"+playerId+"')._YoutubeTracker_senderror");
 	}
-	// atualiza posição a cada segundo
+	// updates position each second
 	YoutubeTrackerGlobal.timeout = setInterval(YoutubeTrackerGlobal.updatetimer,500);
 };
