@@ -54,7 +54,7 @@ var YoutubeTracker = window.YoutubeTracker = function(opt_bucket,callback,debug)
 	YoutubeTrackerGlobal.callbackTracker = callback;
   } else {
 	try{
-  		YoutubeTrackerGlobal.callbackTracker = _gat._getTrackerByName()._trackEvent;
+  		YoutubeTrackerGlobal.callbackTracker = function (category,action,label,value){_gaq.push(['_trackEvent',category,action,label,value]);};
 	}catch(e){
   		YoutubeTrackerGlobal.callbackTracker = pageTracker._trackEvent;
 	}
