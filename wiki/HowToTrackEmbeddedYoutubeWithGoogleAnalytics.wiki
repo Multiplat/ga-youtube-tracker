@@ -75,4 +75,20 @@ These time labels (called “buckets”) are defined by default as the visits-le
 </script>
 }}}
 
+
+==Custom Google Analytics Implementations==
+
+By default, YoutubeTracker will try to use the two default _trackEvent implementations:
+ # Async _trackEvent : _gaq.push(['_trackEvent',category,action,label,value]);
+ # Sync _trackEvent : pageTracker._trackEvent(category,action,label,value);
+
+If your site uses a custom implementation which renames the default tracker objects or fires custom code snippets, you will need to modify it accordingly. Take a look at the example, taking the track calls sent to a special my_track_function:
+
+{{{
+	function yt_callback(category,action,label,value){
+ 		my_track_function(category,action,label,value]);
+	}
+	var ytTracker = new YoutubeTracker(false, yt_callback, true);
+}}}
+
 [http://www.directperformance.com.br/en/como-medir-videos-youtube-com-google-analytics]
