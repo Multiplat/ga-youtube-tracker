@@ -36,7 +36,7 @@ See how the code is a simple page for example:
 <script type="text/javascript">
 var params = { allowScriptAccess: "always" };
 var atts = { id: "myplayerid1" };
-swfobject.embedSWF("http://www.youtube.com/v/gRvUpoTT-Bo&hl=pt-br&fs=1&enablejsapi=1&playerapiid=myplayerid1", "flashdiv1", "425", "344", "8", null, null, params, atts);
+swfobject.embedSWF("http://www.youtube.com/v/gRvUpoTT-Bo&hl=pt-br&fs=1&enablejsapi=1&playerapiid=myplayerid1&version=3", "flashdiv1", "425", "344", "8", null, null, params, atts);
 </script>
 
 <!--Youtube tracking component-->
